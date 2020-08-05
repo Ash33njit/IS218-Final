@@ -57,6 +57,10 @@ def form_update_post(city_id):
 def form_insert_get():
     return render_template('new.html', title='New City Form')
 
+@app.route('/email/new', methods=['GET'])
+def form_insert_get():
+    return render_template('email.html', title='Register' Form')
+
 
 @app.route('/cities/new', methods=['POST'])
 def form_insert_post():
