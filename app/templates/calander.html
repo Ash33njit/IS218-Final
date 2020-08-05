@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/cal/new" method="POST">
+    <div class="row">
+        <div class="col">
+            <label for="fldEvent">Event</label>
+            <input id="fldEvent" type="text" class="form-control" placeholder="Email" name="fldEmail">
+        </div>
+                <div class="col">
+            <label for="fldTime">Time</label>
+            <input id="fldTime" type="text" class="form-control" placeholder="Time" name="fldTime">
+        </div>
+    </div>
+    <a href="/email/{fldEmail}">
+        <button type="submit" class="btn btn-success">Create</button>
+    </a>
+
+</form>
+
+{% endblock %}

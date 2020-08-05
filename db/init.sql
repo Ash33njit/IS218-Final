@@ -1,3 +1,16 @@
+CREATE DATABASE calData;
+use calData;
+
+CREATE TABLE IF NOT EXISTS tblCalImport (
+    `id` int AUTO_INCREMENT,
+    `fldEventTitle` VARCHAR(21) CHARACTER SET utf8,
+    `fldTime` VARCHAR(21) CHARACTER SET utf8,
+    PRIMARY KEY (`id`)
+)
+
+INSERT INTO tblCalImport (fldEventTitle, fldTime) VALUES
+    ('Test Event', '08-05-2020T01:00:00Z');
+
 CREATE DATABASE emailData;
 use emailData;
 
@@ -7,6 +20,7 @@ CREATE TABLE IF NOT EXISTS tblEmailsImport (
     `fldPassword` VARCHAR(21) CHARACTER SET utf8,
     `fldFName` VARCHAR(21) CHARACTER SET utf8,
     `fldLName` VARCHAR(21) CHARACTER SET utf8,
+    PRIMARY KEY (`id`)
 )
 
 INSERT INTO tblEmailsImport (fldEmail, fldPassword, fldFName, fldLName) VALUES

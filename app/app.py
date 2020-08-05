@@ -63,25 +63,45 @@ def form_insert_get():
 
 @app.route('/email/new', methods=['GET'])
 def form_insert_email_get():
-    return render_template('email.html', title='Register' Form')
+    return render_template('email.html', title='Register Form')
 
+@app.route('/calendar', methods=['GET'])
+def cal_view():
+    return render_template('calendar.html', title='Calendar')
+
+@app.route('/cal/new', methods=['POST'])
+def form_insert_email_post():
+    cursor = mysql.get_db().cursor()
+    inputData = (request.form.get('fldEventTitle'), request.form.get('fldTime')
+    sql_insert_query = """INSERT INTO tblCalImport (fldEventTitle,fldTime) VALUES (%s, %s) """
+    cursor.execute(sql_insert_query, inputData)
+    mysql.get_db().commit()
+    return redirect("/", code=302)
+
+@app.route('/api/v1/cal', methods=['GET'])
+def api_browse() -> str:
+    cursor = mysql.get_db().cursor()
+    cursor.execute('SELECT * FROM tblCalImport')
+    result = cursor.fetchall()
+    json_result = json.dumps(result);
+    resp = Response(json_result, status=200, mimetype='application/json')
+    return resp
 
 @app.route('/email/<_email>', method=['GET'])
 def send_email(_email):
     mail.send_email(
         from_email='ash33@njit.edu',
         to_email=_email,
-        subject='Test'
-        text='Body,'
+        subject='Test',
+        text='Body'
     )
     return redirect("/", code=302)
 
 @app.route('/email/new', methods=['POST'])
 def form_insert_email_post():
     cursor = mysql.get_db().cursor()
-    inputData = (request.form.get('fldEmail'), request.form.get('fldPassword'), request.form.get('fldFName'),
-                 request.form.get('fldLName')
-    sql_insert_query = """INSERT INTO tblEmailImport (fldEmail,fldPassword,fldFName,fldCLName) VALUES (%s, %s,%s, %s) """
+    inputData = (request.form.get('fldEmail'), request.form.get('fldPassword'), request.form.get('fldFName'), request.form.get('fldLName')
+    sql_insert_query = """INSERT INTO tblEmailsImport (fldEmail,fldPassword,fldFName,fldLName) VALUES (%s, %s,%s, %s) """
     cursor.execute(sql_insert_query, inputData)
     mysql.get_db().commit()
     return redirect("/", code=302)
