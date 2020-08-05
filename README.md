@@ -32,3 +32,30 @@ def form_insert_email_post():
 
 # •	Feature 2
  Create a calendar display and retrieve data out of Google Calendar.   Allow someone to add an even to their Google Calendar and display it on the page.  You can use the HTML full calendar plugin here (Links to an external site.) and you can probably make an iCal Feed from your Google calendar to feed into it, but you will need to cache the data locally in the database and update the data periodically between each request is made.  For example, if the calendar data has not been updated in 5 minutes, make a request to retrieve the data and update the database and then display that data in the fullCalendar page.
+
+## • app.py code for feature 2
+### • added calendar.html for for while also editing the init.sql file to add an calendar table. 
+
+ ```
+ @app.route('/calendar', methods=['GET'])
+def cal_view():
+    return render_template('calendar.html', title='Calendar')
+
+@app.route('/cal/new', methods=['POST'])
+def form_insert_email_post():
+    cursor = mysql.get_db().cursor()
+    inputData = (request.form.get('fldEventTitle'), request.form.get('fldTime')
+    sql_insert_query = """INSERT INTO tblCalImport (fldEventTitle,fldTime) VALUES (%s, %s) """
+    cursor.execute(sql_insert_query, inputData)
+    mysql.get_db().commit()
+    return redirect("/", code=302)
+
+@app.route('/api/v1/cal', methods=['GET'])
+def api_browse() -> str:
+    cursor = mysql.get_db().cursor()
+    cursor.execute('SELECT * FROM tblCalImport')
+    result = cursor.fetchall()
+    json_result = json.dumps(result);
+    resp = Response(json_result, status=200, mimetype='application/json')
+    return resp
+ ```
