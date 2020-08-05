@@ -35,6 +35,7 @@ def form_insert_email_post():
 
 ## • app.py code for feature 2
 ### • added calendar.html for for while also editing the init.sql file to add an calendar table. 
+### • Integrated Google Cal JS API
 
  ```
  @app.route('/calendar', methods=['GET'])
