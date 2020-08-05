@@ -1,8 +1,8 @@
 # •	Feature 1
 Create a login and registration process that includes email verification.  You can use a service like SendGrid to send email and you should look for a Flask Plugin to help.
 
-## app.py code for feature 1
-### added email.html for for while also editing the init.sql file to add an email table. 
+## • app.py code for feature 1
+### • added email.html for for while also editing the init.sql file to add an email table. 
 
 ```@app.route('/email/new', methods=['GET'])
 def form_insert_email_get():
