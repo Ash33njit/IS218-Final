@@ -2,14 +2,18 @@ from typing import List, Dict
 import simplejson as json
 from flask import Flask, request, Response, redirect
 from flask import render_template
+from flask_sendgrid import SendGrid
 from flaskext.mysql import MySQL
 from pymysql.cursors import DictCursor
 
 app = Flask(__name__)
 mysql = MySQL(cursorclass=DictCursor)
+mail = SendGrid(app)
 
 app.config['MYSQL_DATABASE_HOST'] = 'db'
 app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['SENDGRID_API_KEY'] = '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'
+app.config['SENDGRID_DEFAULT_FROM'] = 'ash33@njit.edu'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
 app.config['MYSQL_DATABASE_PORT'] = 3306
 app.config['MYSQL_DATABASE_DB'] = 'citiesData'
@@ -58,9 +62,29 @@ def form_insert_get():
     return render_template('new.html', title='New City Form')
 
 @app.route('/email/new', methods=['GET'])
-def form_insert_get():
+def form_insert_email_get():
     return render_template('email.html', title='Register' Form')
 
+
+@app.route('/email/<_email>', method=['GET'])
+def send_email(_email):
+    mail.send_email(
+        from_email='ash33@njit.edu',
+        to_email=_email,
+        subject='Test'
+        text='Body,'
+    )
+    return redirect("/", code=302)
+
+@app.route('/email/new', methods=['POST'])
+def form_insert_email_post():
+    cursor = mysql.get_db().cursor()
+    inputData = (request.form.get('fldEmail'), request.form.get('fldPassword'), request.form.get('fldFName'),
+                 request.form.get('fldLName')
+    sql_insert_query = """INSERT INTO tblEmailImport (fldEmail,fldPassword,fldFName,fldCLName) VALUES (%s, %s,%s, %s) """
+    cursor.execute(sql_insert_query, inputData)
+    mysql.get_db().commit()
+    return redirect("/", code=302)
 
 @app.route('/cities/new', methods=['POST'])
 def form_insert_post():

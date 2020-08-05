@@ -26,4 +26,5 @@ def form_insert_email_post():
     sql_insert_query = """INSERT INTO tblEmailImport (fldEmail,fldPassword,fldFName,fldCLName) VALUES (%s, %s,%s, %s) """
     cursor.execute(sql_insert_query, inputData)
     mysql.get_db().commit()
-    return redirect("/", code=302)```
+    return redirect("/", code=302)
+```
