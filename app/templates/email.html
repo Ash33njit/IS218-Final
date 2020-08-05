@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/email/new" method="POST">
+    <div class="row">
+        <div class="col">
+            <label for="fldEmail">Email</label>
+            <input id="fldEmail" type="text" class="form-control" placeholder="Email" name="fldEmail">
+        </div>
+                <div class="col">
+            <label for="fldPassword">Password</label>
+            <input id="fldPassword" type="text" class="form-control" placeholder="Password" name="fldPassword">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label for="fldFName">First Name</label>
+            <input id="fldFName" type="text" class="form-control" placeholder="First Name"
+                   name="fldFName">
+        </div>
+        <div class="col">
+            <label for="fldLName">Last Name</label>
+            <input id="fldLName" type="text" class="form-control" placeholder="Last Name" name="fldLName">
+        </div>
+    </div>
+    <a href="/email/{fldEmail}">
+        <button type="submit" class="btn btn-success">Create</button>
+    </a>
+
+</form>
+
+{% endblock %}

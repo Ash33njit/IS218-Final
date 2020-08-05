@@ -1,3 +1,17 @@
+CREATE DATABASE emailData;
+use emailData;
+
+CREATE TABLE IF NOT EXISTS tblEmailsImport (
+    `id` int AUTO_INCREMENT,
+    `fldEmail` VARCHAR(21) CHARACTER SET utf8,
+    `fldPassword` VARCHAR(21) CHARACTER SET utf8,
+    `fldFName` VARCHAR(21) CHARACTER SET utf8,
+    `fldLName` VARCHAR(21) CHARACTER SET utf8,
+)
+
+INSERT INTO tblEmailsImport (fldEmail, fldPassword, fldFName, fldLName) VALUES
+    ('ash33@njit.edu', 'testpass', 'Adib', 'H');
+
 CREATE DATABASE citiesData;
 use citiesData;
 
