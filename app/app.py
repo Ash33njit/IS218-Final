@@ -8,6 +8,7 @@ from pymysql.cursors import DictCursor
 
 app = Flask(__name__)
 mysql = MySQL(cursorclass=DictCursor)
+
 mail = SendGrid(app)
 
 app.config['MYSQL_DATABASE_HOST'] = 'db'
