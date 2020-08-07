@@ -71,10 +71,10 @@ def cal_view():
     return render_template('calendar.html', title='Calendar')
 
 @app.route('/cal/new', methods=['POST'])
-def form_insert_email_post():
+def form_insert_email_post(): #Locate issue
     cursor = mysql.get_db().cursor()
     inputData = (request.form.get('fldEventTitle'), request.form.get('fldTime')
-    sql_insert_query = """INSERT INTO tblCalImport (fldEventTitle,fldTime) VALUES (%s, %s) """
+    sql_insert_query = """INSERT INTO tblCalImport (fldEventTitle,fldTime) VALUES (%s, %s) """ #error line
     cursor.execute(sql_insert_query, inputData)
     mysql.get_db().commit()
     return redirect("/", code=302)
