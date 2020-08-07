@@ -74,7 +74,7 @@ def cal_view():
 def form_insert_email_post():
     cursor = mysql.get_db().cursor()
     inputData = (request.form.get('fldEventTitle'), request.form.get('fldTime')
-    sql_insert_query = """INSERT INTO tblCalImport (fldEventTitle,fldTime) VALUES (%s, %s) """
+    sql_insert_query = """INSERT INTO tblCalImport (fldEventTitle,fldTime) VALUES (%s, %s) """ #error line
     cursor.execute(sql_insert_query, inputData)
     mysql.get_db().commit()
     return redirect("/", code=302)
